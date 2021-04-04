@@ -121,7 +121,7 @@ public class Employee {
 		return pattern.matcher(num).matches();
 	}
 
-	public static boolean isVaildString(String str) {
+	public static boolean isValidString(String str) {
 		try {
 			Integer.parseInt(str);
 			return true;
