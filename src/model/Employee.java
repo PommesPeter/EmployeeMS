@@ -78,6 +78,7 @@ public class Employee {
 			this.wage = wage;
 			this.email = email;
 			this.gusrId = generateUsrId();
+			++count;
 		} catch (ParseException e) {
 			e.printStackTrace();
 			System.exit(0);
