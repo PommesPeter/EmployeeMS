@@ -8,37 +8,40 @@ import javax.swing.*;
 import model.Employee;
 import model.MessageDialog;
 import view.AddEmployeeWindow;
+import view.MainWindow;
 
-public class AddEmployeeListener implements ActionListener{
+public class AddEmployeeListener implements ActionListener {
+
+	AddEmployeeWindow am;
+
+	public AddEmployeeListener(AddEmployeeWindow am) {
+		this.am = am;
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		System.out.println(e.getActionCommand());
 
-		try {
-			AddEmployeeWindow window = new AddEmployeeWindow();
-		} catch (Exception exp2) {
-			exp2.printStackTrace();
+		if (!Employee.isVaildEmail(this.am.getEmailInput())) {
+			new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "邮箱格式错误, 请重试....").show();
+			this.am.setEmailInput("");
 		}
-
+		if (!Employee.isNumberic(this.am.getNumInput())) {
+			new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "职工号格式错误, 请重试....").show();
+			this.am.setNumInput("");
+		}
+		if (!Employee.isDoubleNumber(this.am.getWageInput())) {
+			new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "基本工薪格式错误, 请重试....").show();
+			this.am.setWageInput("");
+		}
+		if (Employee.isVaildString(this.am.getName())) {
+			new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "名字中包含数字, 请重试....").show();
+			this.am.setNameInput("");
+		}
+		if (Employee.isVaildBirthday(this.am.getYearInput(), this.am.getMonthInput())) {
+			new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "出生年月中格式错误, 请重试....").show();
+			this.am.setBirthInput("", "");
+		}
 	}
 }
-/*if (!Employee.isVaildEmail(window.getEmailInput())) {
-				new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "邮箱格式错误, 请重试....");
-				window.setEmailInput("");
-			}
-			if (!Employee.isNumberic(window.getNumInput())) {
-				new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "职工号格式错误, 请重试....");
-				window.setNumInput("");
-			}
-			if (!Employee.isDoubleNumber(window.getWageInput())) {
-				new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "基本工薪格式错误, 请重试....");
-				window.setWageInput("");
-			}
-			if (Employee.isVaildString(window.getName())) {
-				new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "名字中包含数字, 请重试....");
-				window.setNameInput("");
-			}
-			if (Employee.isVaildBirthday(window.getYearInput(), window.getMonthInput())) {
-				new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "出生年月中格式错误, 请重试....");
-				window.setBirthInput("", "");
-			}*/
+/**/

@@ -110,7 +110,7 @@ public class Employee {
 
 	public static boolean isVaildEmail(String email) {
 		if (email.equals("")) {
-			new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "邮箱不能为空, 请重试....");
+			new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "邮箱不能为空, 请重试....").show();
 			return false;
 		}
 		String pattern = "^\\s*\\w+(?:\\.{0,1}[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$";
@@ -122,7 +122,7 @@ public class Employee {
 
 	public static boolean isNumberic (String num) {
 		if (num.equals("")) {
-			new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "职工号不能为空, 请重试....");
+			new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "职工号不能为空, 请重试....").show();
 			return false;
 		}
 		Pattern pattern = Pattern.compile("[0-9]*");
@@ -131,7 +131,7 @@ public class Employee {
 
 	public static boolean isVaildString(String str) {
 		if (str.equals("")) {
-			new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "姓名不能为空, 请重试....");
+			new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "姓名不能为空, 请重试....").show();
 			return false;
 		}
 		try {
@@ -144,7 +144,7 @@ public class Employee {
 
 	public static boolean isDoubleNumber(String str) {
 		if (str.equals("")) {
-			new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "工薪不能为空, 请重试....");
+			new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "工薪不能为空, 请重试....").show();
 			return false;
 		}
 		try {
@@ -157,7 +157,7 @@ public class Employee {
 
 	public static boolean isVaildBirthday(String year, String month) {
 		if (year.equals("") || month.equals("")) {
-			new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "出生年月不能为空, 请重试....");
+			new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "出生年月不能为空, 请重试....").show();
 			return false;
 		}
 		Calendar calendar = Calendar.getInstance();
