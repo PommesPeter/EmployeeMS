@@ -16,11 +16,11 @@ public class Employee {
 	private String gusrId;
 	private String name;
 	private Date birthday;
-	private Double wage;
+	private String wage;
 	private String email;
 	private static int count = 0;
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-	
+
 	public Integer getUsrId() {
 		return usrId;
 	}
@@ -57,11 +57,11 @@ public class Employee {
 		}
 	}
 
-	public Double getWage() {
+	public String getWage() {
 		return wage;
 	}
 
-	public void setWage(Double wage) {
+	public void setWage(String wage) {
 		this.wage = wage;
 	}
 
@@ -71,7 +71,7 @@ public class Employee {
 		this.email = email;
 	}
 
-	public Employee(String Id, String name, String date, double wage, String email) {
+	public Employee(String Id, String name, String date, String wage, String email) {
 		try {
 			this.usrId = Integer.parseInt(Id);
 			this.name = name;
@@ -86,7 +86,7 @@ public class Employee {
 		}
 	}
 	
-	public Employee(String name, String date, double wage, String email) {
+	public Employee(String name, String date, String wage, String email) {
 		try {
 			this.name = name;
 			this.birthday = sdf.parse(date);
@@ -106,6 +106,11 @@ public class Employee {
 		Integer year = calendar.get(Calendar.YEAR);
 		Integer month = calendar.get(Calendar.MONTH);
 		return year.toString() + df.format(month) + df.format(this.getUsrId());
+	}
+
+	private String generateRecord() {
+
+
 	}
 
 	public static boolean isVaildEmail(String email) {
@@ -150,5 +155,4 @@ public class Employee {
 			} else return false;
 		} else return false;
 	}
-
 }
