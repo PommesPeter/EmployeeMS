@@ -17,7 +17,7 @@ public class MessageDialog {
 
     public void show() {
         if (this.type.equals("message")) {
-            JOptionPane.showMessageDialog(null, this.title, this.content, this.messageType);
+            JOptionPane.showMessageDialog(null, this.content, this.title, this.messageType);
         }
     }
 
