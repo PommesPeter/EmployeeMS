@@ -13,7 +13,7 @@ public class testEmployee {
 		System.out.println(employee.getBirthdayOriginal());
 		employee.setBirthday("20000601");
 		System.out.println(employee.getBirthdayOriginal());
-		System.out.println(Employee.isVaildEmail(employee.getEmail()));
+		System.out.println(Employee.isDoubleNumber(employee.getWage().toString()));
 		
 	}
 

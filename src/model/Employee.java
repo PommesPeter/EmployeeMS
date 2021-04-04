@@ -1,5 +1,6 @@
 package model;
 
+import javax.swing.*;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,7 +16,7 @@ public class Employee {
 	private String gusrId;
 	private String name;
 	private Date birthday;
-	private double wage;
+	private Double wage;
 	private String email;
 	private static int count = 0;
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -56,11 +57,11 @@ public class Employee {
 		}
 	}
 
-	public double getWage() {
+	public Double getWage() {
 		return wage;
 	}
 
-	public void setWage(double wage) {
+	public void setWage(Double wage) {
 		this.wage = wage;
 	}
 
@@ -108,6 +109,10 @@ public class Employee {
 	}
 
 	public static boolean isVaildEmail(String email) {
+		if (email.equals("")) {
+			new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "邮箱不能为空, 请重试....");
+			return false;
+		}
 		String pattern = "^\\s*\\w+(?:\\.{0,1}[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$";
 //		String pattern = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";
 		Pattern regex = Pattern.compile(pattern);
@@ -116,11 +121,19 @@ public class Employee {
 	}
 
 	public static boolean isNumberic (String num) {
+		if (num.equals("")) {
+			new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "职工号不能为空, 请重试....");
+			return false;
+		}
 		Pattern pattern = Pattern.compile("[0-9]*");
 		return pattern.matcher(num).matches();
 	}
 
 	public static boolean isVaildString(String str) {
+		if (str.equals("")) {
+			new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "姓名不能为空, 请重试....");
+			return false;
+		}
 		try {
 			Integer.parseInt(str);
 			return true;
@@ -129,7 +142,11 @@ public class Employee {
 		}
 	}
 
-	public static boolean isDoubleNUmber(String str) {
+	public static boolean isDoubleNumber(String str) {
+		if (str.equals("")) {
+			new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "工薪不能为空, 请重试....");
+			return false;
+		}
 		try {
 			Double.parseDouble(str);
 			return true;
@@ -137,4 +154,21 @@ public class Employee {
 			return false;
 		}
 	}
+
+	public static boolean isVaildBirthday(String year, String month) {
+		if (year.equals("") || month.equals("")) {
+			new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "出生年月不能为空, 请重试....");
+			return false;
+		}
+		Calendar calendar = Calendar.getInstance();
+		Integer nowYear = calendar.get(Calendar.YEAR);
+		Integer yearNum = Integer.parseInt(year);
+		Integer monthNum = Integer.parseInt(month);
+		if (isNumberic(year) && isNumberic(month)) {
+			if (monthNum >= 1 && monthNum <= 12 && yearNum <= nowYear) {
+				return true;
+			} else return false;
+		} else return false;
+	}
+
 }

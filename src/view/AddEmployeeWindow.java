@@ -143,4 +143,26 @@ public class AddEmployeeWindow extends JFrame {
 	public String getMonthInput() {
 		return monthInput.getText();
 	}
+
+	public void setNumInput(String content) {
+		this.numInput.setText(content);
+	}
+
+	public void setNameInput(String content) {
+		this.nameInput.setText(content);
+	}
+
+	public void setWageInput(String content) {
+		this.wageInput.setText(content);
+	}
+
+	public void setEmailInput(String content) {
+		this.emailInput.setText(content);
+	}
+
+	public void setBirthInput(String year, String month) {
+		this.yearInput.setText(year);
+		this.monthInput.setText(month);
+	}
+
 }
