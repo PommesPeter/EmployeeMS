@@ -1,5 +1,7 @@
 package view;
 
+import controller.AddEmployeeListener;
+
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
@@ -109,7 +111,7 @@ public class AddEmployeeWindow extends JFrame {
 		frame.getContentPane().add(button, BorderLayout.SOUTH);
 		
 		JButton confirmButton = new JButton("\u786E\u5B9A");
-		confirmButton.addActionListener();
+		confirmButton.addActionListener(new AddEmployeeListener());
 		button.add(confirmButton);
 		
 		JButton cancelButton = new JButton("\u53D6\u6D88");
@@ -120,6 +122,8 @@ public class AddEmployeeWindow extends JFrame {
 		});
 		button.add(cancelButton);
 	}
+
+	
 
 	public String getNumInput() {
 		return numInput.getText();

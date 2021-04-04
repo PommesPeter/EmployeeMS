@@ -56,7 +56,16 @@ public class MainWindow extends JFrame{
 		frame.getContentPane().add(operatorPanel, BorderLayout.WEST);
 		
 		JButton addButton = new JButton("\u6DFB\u52A0");
-		addButton.addActionListener(new AddEmployeeListener());
+		addButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent actionEvent) {
+				try {
+					AddEmployeeWindow window = new AddEmployeeWindow();
+				} catch (Exception exp2) {
+					exp2.printStackTrace();
+				}
+			}
+		});
 
 		operatorPanel.setLayout(new GridLayout(9, 1, 0, 0));
 		

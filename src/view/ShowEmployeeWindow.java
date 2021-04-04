@@ -80,7 +80,8 @@ public class ShowEmployeeWindow extends JFrame {
 		
 		infoList = new JTable();
 		title.add(infoList, BorderLayout.CENTER);
-		
+
+		String colName[] = {"职工序号", "姓名", "出生年月", "基本工薪", "Email"};
 		JLabel titleLabel = new JLabel("\u804C\u5DE5\u4FE1\u606F");
 		titleLabel.setFont(new Font("Microsoft YaHei", Font.BOLD, 20));
 		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
