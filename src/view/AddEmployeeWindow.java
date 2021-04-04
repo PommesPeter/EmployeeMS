@@ -109,6 +109,7 @@ public class AddEmployeeWindow extends JFrame {
 		frame.getContentPane().add(button, BorderLayout.SOUTH);
 		
 		JButton confirmButton = new JButton("\u786E\u5B9A");
+		confirmButton.addActionListener();
 		button.add(confirmButton);
 		
 		JButton cancelButton = new JButton("\u53D6\u6D88");
