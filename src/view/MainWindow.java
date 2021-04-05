@@ -35,8 +35,8 @@ public class MainWindow extends JFrame {
         try {
             r = new FileReader(Config.DATAFILEPATH);
             BufferedReader br = new BufferedReader(r);
-            while (br.read() != -1) {
-                String tmp = br.readLine();
+            String tmp;
+            while ((tmp = br.readLine()) != null) {
                 String[] splitData = tmp.split(",");
                 EmployeeInfo e = new EmployeeInfo(splitData);
                 this.tableDataList.add(e);
@@ -98,11 +98,11 @@ public class MainWindow extends JFrame {
         modifyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                new MessageDialog("input", JOptionPane.PLAIN_MESSAGE, "更新职工信息", "请输入要更新的职工的职工序号...").show();
+                String usrIdInput = JOptionPane.showInputDialog(null, "请输入要更新的职工的职工序号...", "更新职工信息", JOptionPane.PLAIN_MESSAGE);
                 try {
-                    if (!Employee.isNumberic(MessageDialog.inputValue)) {
+                    if (!Employee.isNumberic(usrIdInput)) {
                         new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "职工序号格式错误, 请重试....").show();
-                        new MessageDialog("input", JOptionPane.PLAIN_MESSAGE, "更新职工信息", "请输入要更新的职工的职工序号...").show();
+                        return;
                     }
                 } catch (Exception e) {
                     new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "职工序号为空, 请重试....").show();
@@ -110,43 +110,38 @@ public class MainWindow extends JFrame {
                 }
 
                 for (int i = 0; i < tableDataList.size(); i++) {
-                    if (MessageDialog.inputValue.equals(tableDataList.get(i).getUsrId())) {
-                        String usrId = tableDataList.get(i).getUsrId();
+                    if (usrIdInput.equals(tableDataList.get(i).getUsrId())) {
+                        String usrId = usrIdInput;
                         String nameInput = JOptionPane.showInputDialog(null, "请输入更改后的姓名...(输入N为不修改)", "修改信息", JOptionPane.PLAIN_MESSAGE);
                         if (nameInput.equals("")) {
                             new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "姓名为空, 请重试...").show();
                             nameInput = JOptionPane.showInputDialog(null, "请输入更改后的姓名...(输入N为不修改)", "修改信息", JOptionPane.PLAIN_MESSAGE);
-                            if (nameInput.equals("n") || nameInput.equals("N")) {
-                                nameInput = tableDataList.get(i).getName();
-                            }
+                        } else if (nameInput.equals("n") || nameInput.equals("N")) {
+                            nameInput = tableDataList.get(i).getName();
                         }
                         String birthInput = JOptionPane.showInputDialog(null, "请输入更改后的生日...(格式:yyyyMM)(输入N为不修改)", "修改信息", JOptionPane.PLAIN_MESSAGE);
                         if (birthInput.equals("")) {
                             new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "生日为空, 请重试...").show();
                             birthInput = JOptionPane.showInputDialog(null, "请输入更改后的生日...(格式:yyyyMM)(输入N为不修改)", "修改信息", JOptionPane.PLAIN_MESSAGE);
-                            if (birthInput.equals("N") || birthInput.equals("n")) {
-                                birthInput = tableDataList.get(i).getBirthday();
-                            }
+                        } else if (birthInput.equals("N") || birthInput.equals("n")) {
+                            birthInput = tableDataList.get(i).getBirthday();
                         }
                         String wageInput = JOptionPane.showInputDialog(null, "请输入更改后的基本工薪...(输入N为不修改)", "修改信息", JOptionPane.PLAIN_MESSAGE);
                         if (wageInput.equals("")) {
                             new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "基本工薪为空, 请重试...").show();
                             wageInput = JOptionPane.showInputDialog(null, "请输入更改后的基本工薪...(输入N为不修改)", "修改信息", JOptionPane.PLAIN_MESSAGE);
-                            if (wageInput.equals("N") || wageInput.equals("n")) {
-                                wageInput = tableDataList.get(i).getWage();
-                            }
+                        } else if (wageInput.equals("N") || wageInput.equals("n")) {
+                            wageInput = tableDataList.get(i).getWage();
                         }
                         String emailInput = JOptionPane.showInputDialog(null, "请输入更改后的Email...(输入N为不修改)", "修改信息", JOptionPane.PLAIN_MESSAGE);
                         if (emailInput.equals("")) {
                             new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "Email为空, 请重试...").show();
                             emailInput = JOptionPane.showInputDialog(null, "请输入更改后的Email...(输入N为不修改)", "修改信息", JOptionPane.PLAIN_MESSAGE);
-                            if (emailInput.equals("N") || emailInput.equals("n")) {
-                                emailInput = tableDataList.get(i).getEmail();
-                            }
+                        } else if (emailInput.equals("N") || emailInput.equals("n")) {
+                            emailInput = tableDataList.get(i).getEmail();
                         }
                         EmployeeInfo e = new EmployeeInfo(usrId, nameInput, birthInput, wageInput, emailInput);
                         tableDataList.set(i, e);
-
                         break;
                     }
                 }

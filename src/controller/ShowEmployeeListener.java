@@ -14,7 +14,6 @@ public class ShowEmployeeListener implements ActionListener{
 		try {
 			ShowEmployeeWindow window = new ShowEmployeeWindow();
 
-
 //			window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		} catch (Exception exp) {
 			exp.printStackTrace();

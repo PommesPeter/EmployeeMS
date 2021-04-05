@@ -116,9 +116,10 @@ public class ShowEmployeeWindow extends JFrame {
 		ArrayList<EmployeeInfo> list = new ArrayList<>();
 		FileReader r = new FileReader(Config.DATAFILEPATH);
 		BufferedReader br = new BufferedReader(r);
-		while (br.read() != - 1) {
-			String tmp = br.readLine();
-			String[] splitData = tmp.split(",");
+		String tmpString;
+		//在使用read或readLine作为判断条件的时候需要注意在判断的时候已经读从文件流中读入一次了，如果循环体中继续写read的方法的话会导致缺失字符。
+		while ((tmpString = br.readLine()) != null) {
+			String[] splitData = tmpString.split(",");
 			EmployeeInfo e = new EmployeeInfo(splitData);
 			list.add(e);
 		}
