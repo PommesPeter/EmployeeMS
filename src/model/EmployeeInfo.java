@@ -1,14 +1,12 @@
 package model;
 
-import java.util.ArrayList;
-
 public class EmployeeInfo {
-    public String usrId;
-    public String name;
-    public String birthday;
-    public String wage;
-    public String email;
-
+    private String usrId;
+    private String name;
+    private String birthday;
+    private String wage;
+    private String email;
+    //雇员信息类构造方法：根据data数组赋值
     public EmployeeInfo(String[] data) {
         this.usrId = data[0];
         this.name = data[1];
@@ -16,7 +14,7 @@ public class EmployeeInfo {
         this.wage = data[3];
         this.email = data[4];
     }
-
+    //雇员信息类构造方法：根据各项数据赋值
     public EmployeeInfo(String usrId, String name, String birthday, String wage, String email) {
         this.usrId = usrId;
         this.name = name;
@@ -24,7 +22,7 @@ public class EmployeeInfo {
         this.wage = wage;
         this.email = email;
     }
-
+    //各种get方法
     public String getUsrId() {
         return usrId;
     }

@@ -16,23 +16,18 @@ import java.awt.event.ActionEvent;
 import java.io.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class MainWindow extends JFrame {
-
-
     private static final long serialVersionUID = 1L;
     private JFrame frame;
     ArrayList<EmployeeInfo> tableDataList;
-
-    /**
-     * Create the application.
-     */
     public MainWindow() {
         initialize();
+        //窗口启动之后先初始化窗口和数据，加快程序效率
         this.tableDataList = new ArrayList<>();
         FileReader r = null;
         try {
+            //读取data.csv文件
             r = new FileReader(Config.DATAFILEPATH);
             BufferedReader br = new BufferedReader(r);
             String tmp;
@@ -45,14 +40,11 @@ public class MainWindow extends JFrame {
             e.printStackTrace();
         }
     }
-
-    /**
-     * Initialize the contents of the frame.
-     */
+    //初始化窗口
     private void initialize() {
         frame = new JFrame();
         frame.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-        frame.setTitle("\u804C\u5DE5\u4FE1\u606F\u7BA1\u7406\u7CFB\u7EDF  \u5F00\u53D1\u8005:\u8C22\u6D5A\u9716(1900301236) \u6307\u5BFC\u8001\u5E08:\u90ED\u6807");
+        frame.setTitle("职工信息管理系统 开发者:谢浚霖(1900301236) 指导老师:郭标");
         frame.setBounds(100, 100, 897, 616);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(new BorderLayout(0, 0));
@@ -62,14 +54,11 @@ public class MainWindow extends JFrame {
         JLabel title = new JLabel(titleIc, JLabel.CENTER);
         title.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 35));
         frame.getContentPane().add(title, BorderLayout.NORTH);
-
         JLabel footer = new JLabel("Copyright@PommesPeter(1900301236谢浚霖)", JLabel.LEFT);
         frame.getContentPane().add(footer, BorderLayout.SOUTH);
-
         JPanel operatorPanel = new JPanel();
         frame.getContentPane().add(operatorPanel, BorderLayout.WEST);
-
-        JButton addButton = new JButton("\u6DFB\u52A0");
+        JButton addButton = new JButton("添加");
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -80,25 +69,20 @@ public class MainWindow extends JFrame {
                 }
             }
         });
-
         operatorPanel.setLayout(new GridLayout(9, 1, 0, 0));
-
-        JLabel opLabel = new JLabel("\u64CD\u4F5C");
+        JLabel opLabel = new JLabel("操作");
         opLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 20));
         operatorPanel.add(opLabel);
-
-        JLabel addLabel = new JLabel("\u6DFB\u52A0\u804C\u5DE5\u4FE1\u606F");
+        JLabel addLabel = new JLabel("添加职工信息");
         operatorPanel.add(addLabel);
         operatorPanel.add(addButton);
-
-        JLabel modifyLabel = new JLabel("\u4FEE\u6539\u804C\u5DE5\u4FE1\u606F");
+        JLabel modifyLabel = new JLabel("修改职工信息");
         operatorPanel.add(modifyLabel);
-
-
-        JButton modifyButton = new JButton("\u4FEE\u6539");
+        JButton modifyButton = new JButton("修改");
         modifyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                //处理修改员工信息的逻辑
                 String usrIdInput = JOptionPane.showInputDialog(null, "请输入要更新的职工的职工序号...", "更新职工信息", JOptionPane.PLAIN_MESSAGE);
                 try {
                     if (!Employee.isNumberic(usrIdInput)) {
@@ -109,7 +93,6 @@ public class MainWindow extends JFrame {
                     new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "职工序号为空, 请重试....").show();
                     return;
                 }
-
                 for (int i = 0; i < tableDataList.size(); i++) {
                     if (usrIdInput.equals(tableDataList.get(i).getUsrId())) {
                         String usrId = usrIdInput;
@@ -146,27 +129,23 @@ public class MainWindow extends JFrame {
                         break;
                     }
                 }
-                updateTxt(tableDataList);
+                updateCsv(tableDataList);
                 new MessageDialog("message", JOptionPane.PLAIN_MESSAGE, "操作", "工号序号为:" + usrIdInput + "的职工信息已更新....");
-
             }
         });
         operatorPanel.add(modifyButton);
-
-        JLabel showLabel = new JLabel("\u663E\u793A\u804C\u5DE5\u4FE1\u606F");
+        JLabel showLabel = new JLabel("显示职工信息");
         operatorPanel.add(showLabel);
-
-        JButton showButton = new JButton("\u5C55\u793A");
+        JButton showButton = new JButton("显示");
         showButton.addActionListener(new ShowEmployeeListener());
         operatorPanel.add(showButton);
-
-        JLabel delLabel = new JLabel("\u5220\u9664\u804C\u5DE5\u4FE1\u606F");
+        JLabel delLabel = new JLabel("删除职工信息");
         operatorPanel.add(delLabel);
-
-        JButton delButton = new JButton("\u5220\u9664");
+        JButton delButton = new JButton("删除");
         delButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                //处理删除员工信息的逻辑
                 new MessageDialog("input", JOptionPane.PLAIN_MESSAGE, "删除职工信息", "请输入要删除的职工的职工序号...").show();
                 try {
                     if (!Employee.isNumberic(MessageDialog.inputValue)) {
@@ -184,41 +163,35 @@ public class MainWindow extends JFrame {
                         break;
                     }
                 }
-                updateTxt(tableDataList);
+                updateCsv(tableDataList);
                 new MessageDialog("message", JOptionPane.PLAIN_MESSAGE, "操作", "工号序号为:" + MessageDialog.inputValue + "的职工信息删除成功....");
             }
         });
         operatorPanel.add(delButton);
-
         JPanel staticsPanel = new JPanel();
         frame.getContentPane().add(staticsPanel, BorderLayout.EAST);
         staticsPanel.setLayout(new GridLayout(9, 1, 0, 0));
-
-        JLabel staticsLabel = new JLabel("\u7EDF\u8BA1");
+        JLabel staticsLabel = new JLabel("统计");
         staticsLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 20));
         staticsPanel.add(staticsLabel);
-
-        JLabel numLabel = new JLabel("\u663E\u793A\u804C\u5DE5\u4EBA\u6570");
+        JLabel numLabel = new JLabel("显示职工人数");
         staticsPanel.add(numLabel);
-
-        JButton numButton = new JButton("\u4EBA\u6570");
+        JButton numButton = new JButton("职工人数");
         numButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                //number of the employee
+                //显示职工人数
                 new MessageDialog("message", JOptionPane.PLAIN_MESSAGE, "查询结果", "目前共有" + tableDataList.size() + "名员工").show();
             }
         });
         staticsPanel.add(numButton);
-
-        JLabel avgLabel = new JLabel("\u663E\u793A\u5E73\u5747\u85AA\u8D44");
+        JLabel avgLabel = new JLabel("显示平均薪资");
         staticsPanel.add(avgLabel);
-
-        JButton avgButton = new JButton("\u5E73\u5747\u85AA\u8D44");
+        JButton avgButton = new JButton("平均薪资");
         avgButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                // average of the wage
+                //显示平均薪资
                 Double sum = 0.0;
                 DecimalFormat df = new DecimalFormat("#.000");
                 for (EmployeeInfo employeeInfo : tableDataList) {
@@ -228,12 +201,11 @@ public class MainWindow extends JFrame {
             }
         });
         staticsPanel.add(avgButton);
-
-        JLabel maxLabel = new JLabel("\u663E\u793A\u6700\u9AD8\u85AA\u8D44");
+        JLabel maxLabel = new JLabel("显示最高薪资");
         staticsPanel.add(maxLabel);
-
-        JButton maxButton = new JButton("\u6700\u9AD8\u85AA\u8D44");
+        JButton maxButton = new JButton("最高薪资");
         maxButton.addActionListener(new ActionListener() {
+            //显示最高薪资
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 Double max = 0.0;
@@ -247,12 +219,11 @@ public class MainWindow extends JFrame {
             }
         });
         staticsPanel.add(maxButton);
-
-        JLabel minLabel = new JLabel("\u663E\u793A\u6700\u4F4E\u85AA\u8D44");
+        JLabel minLabel = new JLabel("显示最低薪资");
         staticsPanel.add(minLabel);
-
-        JButton minButton = new JButton("\u6700\u4F4E\u85AA\u8D44");
+        JButton minButton = new JButton("最低薪资");
         minButton.addActionListener(new ActionListener() {
+            //显示最低薪资
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 Double min = 1e6;
@@ -266,52 +237,18 @@ public class MainWindow extends JFrame {
             }
         });
         staticsPanel.add(minButton);
-
         ImageIcon ic = new ImageIcon(Config.IMAGEBANNERPATH);
         JLabel image = new JLabel(ic);
         frame.getContentPane().add(image, BorderLayout.CENTER);
-
         JMenuBar menuBar = new JMenuBar();
         frame.setJMenuBar(menuBar);
-
-        JMenu operatorMenu = new JMenu("\u4FE1\u606F\u64CD\u4F5C(M)");
-        menuBar.add(operatorMenu);
-
-        JMenuItem addItem = new JMenuItem("\u6DFB\u52A0\u804C\u5DE5\u4FE1\u606F");
-        operatorMenu.add(addItem);
-
-        JMenuItem modifyItem = new JMenuItem("\u4FEE\u6539\u804C\u5DE5\u4FE1\u606F");
-        operatorMenu.add(modifyItem);
-
-        JMenuItem showItem = new JMenuItem("\u663E\u793A\u6240\u6709\u804C\u5DE5\u4FE1\u606F");
-        operatorMenu.add(showItem);
-
-        JMenuItem delItem = new JMenuItem("\u5220\u9664\u804C\u5DE5\u4FE1\u606F");
-        operatorMenu.add(delItem);
-
-        JMenu staticsMenu = new JMenu("\u7EDF\u8BA1\u4FE1\u606F(S)");
-        menuBar.add(staticsMenu);
-
-        JMenuItem numItem = new JMenuItem("\u663E\u793A\u804C\u5DE5\u6570\u91CF");
-        staticsMenu.add(numItem);
-
-        JMenuItem avgItem = new JMenuItem("\u663E\u793A\u5E73\u5747\u85AA\u8D44");
-        staticsMenu.add(avgItem);
-
-        JMenuItem maxItem = new JMenuItem("\u663E\u793A\u6700\u9AD8\u85AA\u8D44");
-        staticsMenu.add(maxItem);
-
-        JMenuItem minItem = new JMenuItem("\u663E\u793A\u6700\u4F4E\u85AA\u8D44");
-        staticsMenu.add(minItem);
-
-        JMenu otherMenu = new JMenu("\u5176\u4ED6(O)...");
+        JMenu otherMenu = new JMenu("其他(O)...");
         menuBar.add(otherMenu);
-
-        JMenuItem aboutItem = new JMenuItem("About");
+        JMenuItem aboutItem = new JMenuItem("关于我");
         otherMenu.add(aboutItem);
     }
-
-    public void updateTxt(ArrayList<EmployeeInfo> l) {
+    //更新csv文件
+    public void updateCsv(ArrayList<EmployeeInfo> l) {
         try {
             FileWriter w = new FileWriter(Config.DATAFILEPATH);
             BufferedWriter bw = new BufferedWriter(w);

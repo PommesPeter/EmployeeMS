@@ -11,7 +11,8 @@ import java.util.regex.Pattern;
 
 
 public class Employee {
-	
+
+	//属性设计为私有避免外部访问修改类中的值，只使用set，get方法修改和获取
 	private Integer usrId;
 	private String gusrId;
 	private String name;
@@ -21,6 +22,7 @@ public class Employee {
 	private static int count = 0;
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
 
+	//以下均为对各个属性的set、get方法
 	public Integer getUsrId() {
 		return usrId;
 	}
@@ -70,7 +72,7 @@ public class Employee {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+	//雇员类构造方法：手动输入序号并根据序号生成符合格式的职工序号
 	public Employee(String Id, String name, String date, String wage, String email) {
 		try {
 			this.usrId = Integer.parseInt(Id);
@@ -85,7 +87,7 @@ public class Employee {
 			System.exit(0);
 		}
 	}
-	
+	//雇员类构造方法：自动排序ID
 	public Employee(String name, String date, String wage, String email) {
 		try {
 			this.name = name;
@@ -99,7 +101,7 @@ public class Employee {
 			System.exit(0);
 		}
 	}
-
+	//自动生成职工序号
 	private String generateUsrId() {
 		Calendar calendar = Calendar.getInstance();
 		DecimalFormat df = new DecimalFormat("00");
@@ -107,7 +109,7 @@ public class Employee {
 		Integer month = calendar.get(Calendar.MONTH);
 		return year.toString() + df.format(month) + df.format(this.getUsrId());
 	}
-
+	//生成一条职工记录
 	public String generateRecord() {
 
 		StringBuilder usrInfo = new StringBuilder();
@@ -118,7 +120,7 @@ public class Employee {
 		usrInfo.append(this.getEmail());
 		return usrInfo.toString();
 	}
-
+	//判断是否是有效的邮箱
 	public static boolean isVaildEmail(String email) {
 		String pattern = "^\\s*\\w+(?:\\.{0,1}[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$";
 //		String pattern = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";
@@ -126,12 +128,12 @@ public class Employee {
 		Matcher matcher = regex.matcher(email);
 		return matcher.matches();
 	}
-
+	//判断是否是数字
 	public static boolean isNumberic (String num) {
 		Pattern pattern = Pattern.compile("[0-9]*");
 		return pattern.matcher(num).matches();
 	}
-
+	//判断是否为有效字符串
 	public static boolean isValidString(String str) {
 		try {
 			Integer.parseInt(str);
@@ -140,7 +142,7 @@ public class Employee {
 			return false;
 		}
 	}
-
+	//判断是否为double数字
 	public static boolean isDoubleNumber(String str) {
 		try {
 			Double.parseDouble(str);
@@ -149,7 +151,7 @@ public class Employee {
 			return false;
 		}
 	}
-
+	//判断生日格式是否正确
 	public static boolean isVaildBirthday(String year, String month) {
 		Calendar calendar = Calendar.getInstance();
 		Integer nowYear = calendar.get(Calendar.YEAR);

@@ -1,4 +1,3 @@
-
 import view.MainWindow;
 import java.awt.EventQueue;
 
