@@ -62,7 +62,6 @@ public class AddEmployeeListener implements ActionListener {
             BufferedWriter bw = new BufferedWriter(w);
             bw.write(usrInfo);
             bw.newLine();
-
             bw.close();
             w.close();
         } catch (IOException ioException) {
