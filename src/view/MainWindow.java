@@ -86,16 +86,7 @@ public class MainWindow extends JFrame {
         operatorPanel.add(showLabel);
 
         JButton showButton = new JButton("\u5C55\u793A");
-        showButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                try {
-                    ShowEmployeeWindow window = new ShowEmployeeWindow();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        showButton.addActionListener(new ShowEmployeeListener());
         operatorPanel.add(showButton);
 
         JLabel delLabel = new JLabel("\u5220\u9664\u804C\u5DE5\u4FE1\u606F");
@@ -114,26 +105,26 @@ public class MainWindow extends JFrame {
         JLabel numLabel = new JLabel("\u663E\u793A\u804C\u5DE5\u4EBA\u6570");
         staticsPanel.add(numLabel);
 
-        JButton btnNewButton_1 = new JButton("\u4EBA\u6570");
-        staticsPanel.add(btnNewButton_1);
+        JButton numButton = new JButton("\u4EBA\u6570");
+        staticsPanel.add(numButton);
 
         JLabel avgLabel = new JLabel("\u663E\u793A\u5E73\u5747\u85AA\u8D44");
         staticsPanel.add(avgLabel);
 
-        JButton btnNewButton_5 = new JButton("\u5E73\u5747\u85AA\u8D44");
-        staticsPanel.add(btnNewButton_5);
+        JButton avgButton = new JButton("\u5E73\u5747\u85AA\u8D44");
+        staticsPanel.add(avgButton);
 
         JLabel maxLabel = new JLabel("\u663E\u793A\u6700\u9AD8\u85AA\u8D44");
         staticsPanel.add(maxLabel);
 
-        JButton btnNewButton_6 = new JButton("\u6700\u9AD8\u85AA\u8D44");
-        staticsPanel.add(btnNewButton_6);
+        JButton maxButton = new JButton("\u6700\u9AD8\u85AA\u8D44");
+        staticsPanel.add(maxButton);
 
         JLabel minLabel = new JLabel("\u663E\u793A\u6700\u4F4E\u85AA\u8D44");
         staticsPanel.add(minLabel);
 
-        JButton btnNewButton_7 = new JButton("\u6700\u4F4E\u85AA\u8D44");
-        staticsPanel.add(btnNewButton_7);
+        JButton minButton = new JButton("\u6700\u4F4E\u85AA\u8D44");
+        staticsPanel.add(minButton);
 
         JLabel image = new JLabel("New label");
         frame.getContentPane().add(image, BorderLayout.CENTER);

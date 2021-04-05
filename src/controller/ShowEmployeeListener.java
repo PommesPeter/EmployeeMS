@@ -12,6 +12,8 @@ public class ShowEmployeeListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
+			ShowEmployeeWindow window = new ShowEmployeeWindow();
+
 
 //			window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		} catch (Exception exp) {

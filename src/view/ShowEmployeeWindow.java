@@ -1,18 +1,16 @@
 package view;
 
+import controller.ShowEmployeeListener;
+
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 import java.awt.BorderLayout;
-import javax.swing.JPanel;
 import java.awt.GridLayout;
-import javax.swing.JTable;
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.FileReader;
 
 public class ShowEmployeeWindow extends JFrame {
 
@@ -59,7 +57,7 @@ public class ShowEmployeeWindow extends JFrame {
 		frame.getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
 		frame.setLocationRelativeTo(frame);
 		frame.setVisible(true);
-		
+
 		JPanel title = new JPanel();
 		frame.getContentPane().add(title);
 		title.setLayout(new BorderLayout(0, 0));
@@ -80,7 +78,9 @@ public class ShowEmployeeWindow extends JFrame {
 
 		String colName[] = {"职工序号", "姓名", "出生年月", "基本工薪", "Email"};
 		infoList = new JTable();
-		title.add(infoList, BorderLayout.CENTER);
+		JScrollPane scrollPane = new JScrollPane(infoList);
+		infoList.setFont(new Font("Dialog", Font.BOLD, 12));
+		title.add(scrollPane, BorderLayout.CENTER);
 
 
 		JLabel titleLabel = new JLabel("\u804C\u5DE5\u4FE1\u606F");
@@ -89,4 +89,12 @@ public class ShowEmployeeWindow extends JFrame {
 		title.add(titleLabel, BorderLayout.NORTH);
 	}
 
+	public String[][] getData() {
+		String[][] data = new String[3][5];
+		FileReader r = new FileReader()
+	}
+
+	public void updateTable(JTable table, String[][] content) {
+
+	}
 }
