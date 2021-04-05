@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.io.*;
 
 import javax.swing.*;
-
 import model.Employee;
 import model.MessageDialog;
 import view.AddEmployeeWindow;
