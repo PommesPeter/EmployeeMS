@@ -2,10 +2,12 @@ package view;
 
 import controller.ShowEmployeeListener;
 import model.Config;
+import model.EmployeeInfo;
 
 import java.awt.*;
 
 import javax.swing.*;
+import javax.xml.crypto.Data;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
@@ -13,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ShowEmployeeWindow extends JFrame {
 
@@ -78,13 +81,26 @@ public class ShowEmployeeWindow extends JFrame {
 		});
 		footer.add(cancelButton);
 
+		ArrayList<EmployeeInfo> tableDataList = null;
+		String[][] tableData;
 		String colName[] = {"职工序号", "姓名", "出生年月", "基本工薪", "Email"};
 		try {
-			getData();
+
+			tableDataList = getDataList();
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		infoList = new JTable();
+		assert tableDataList != null;
+		tableData = new String[tableDataList.size()][5];
+		for (int i = 0; i < tableDataList.size(); i++) {
+			tableData[i][0] = tableDataList.get(i).getUsrId();
+			tableData[i][1] = tableDataList.get(i).getName();
+			tableData[i][2] = tableDataList.get(i).getBirthday();
+			tableData[i][3] = tableDataList.get(i).getWage();
+			tableData[i][4] = tableDataList.get(i).getEmail();
+		}
+		infoList = new JTable(tableData, colName);
 		JScrollPane scrollPane = new JScrollPane(infoList);
 		infoList.setFont(new Font("Dialog", Font.BOLD, 12));
 		title.add(scrollPane, BorderLayout.CENTER);
@@ -96,22 +112,16 @@ public class ShowEmployeeWindow extends JFrame {
 		title.add(titleLabel, BorderLayout.NORTH);
 	}
 
-	public String getData() throws IOException {
-		int len;
-		int rowLen = 0;
+	public ArrayList<EmployeeInfo> getDataList() throws IOException {
+		ArrayList<EmployeeInfo> list = new ArrayList<>();
 		FileReader r = new FileReader(Config.DATAFILEPATH);
 		BufferedReader br = new BufferedReader(r);
-		while ((len = br.read()) != - 1) {
-			rowLen++;
+		while (br.read() != - 1) {
 			String tmp = br.readLine();
-			String[] data = tmp.split(",");
-			System.out.println(tmp);
+			String[] splitData = tmp.split(",");
+			EmployeeInfo e = new EmployeeInfo(splitData);
+			list.add(e);
 		}
-
-		return ";";
-	}
-
-	public void updateTable(JTable table, String[][] content) {
-
+		return list;
 	}
 }
