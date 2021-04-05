@@ -2,34 +2,51 @@ package view;
 
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 import java.awt.Font;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import javax.swing.JPanel;
 
 import controller.AddEmployeeListener;
 import controller.ShowEmployeeListener;
+import model.Config;
+import model.EmployeeInfo;
+import model.MessageDialog;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class MainWindow extends JFrame {
 
 
     private static final long serialVersionUID = 1L;
     private JFrame frame;
+    ArrayList<EmployeeInfo> tableDataList;
 
     /**
      * Create the application.
      */
     public MainWindow() {
         initialize();
+        this.tableDataList = new ArrayList<>();
+        FileReader r = null;
+        try {
+            r = new FileReader(Config.DATAFILEPATH);
+            BufferedReader br = new BufferedReader(r);
+            while (br.read() != - 1) {
+                String tmp = br.readLine();
+                String[] splitData = tmp.split(",");
+                EmployeeInfo e = new EmployeeInfo(splitData);
+                this.tableDataList.add(e);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -106,12 +123,28 @@ public class MainWindow extends JFrame {
         staticsPanel.add(numLabel);
 
         JButton numButton = new JButton("\u4EBA\u6570");
+        numButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                //number of the employee
+                new MessageDialog("message", JOptionPane.PLAIN_MESSAGE, "查询结果", "目前共有" + tableDataList.size() + "名员工").show();
+            }
+        });
         staticsPanel.add(numButton);
 
         JLabel avgLabel = new JLabel("\u663E\u793A\u5E73\u5747\u85AA\u8D44");
         staticsPanel.add(avgLabel);
 
         JButton avgButton = new JButton("\u5E73\u5747\u85AA\u8D44");
+        avgButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                // average of the wage
+                for (int i = 0; i < tableDataList.size(); i++) {
+
+                }
+            }
+        });
         staticsPanel.add(avgButton);
 
         JLabel maxLabel = new JLabel("\u663E\u793A\u6700\u9AD8\u85AA\u8D44");

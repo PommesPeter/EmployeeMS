@@ -8,7 +8,6 @@ public class EmployeeInfo {
     public String birthday;
     public String wage;
     public String email;
-    public String[] data;
 
     public EmployeeInfo(String[] data) {
         this.usrId = data[0];
