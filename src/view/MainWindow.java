@@ -140,9 +140,11 @@ public class MainWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 // average of the wage
-                for (int i = 0; i < tableDataList.size(); i++) {
-
+                Double sum = 0.0;
+                for (EmployeeInfo employeeInfo : tableDataList) {
+                    sum += Double.parseDouble(employeeInfo.getWage());
                 }
+                new MessageDialog("message", JOptionPane.PLAIN_MESSAGE, "查询结果", "目前所有职工的平均基本工薪为: " + sum / tableDataList.size() + "元").show();
             }
         });
         staticsPanel.add(avgButton);
