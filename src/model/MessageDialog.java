@@ -8,6 +8,7 @@ public class MessageDialog {
     String title;
     Integer messageType;
     String content;
+    public static String inputValue;
     public MessageDialog(String type, Integer messageTypeString, String title, String content) {
         this.type = type;
         this.title = title;
@@ -20,6 +21,8 @@ public class MessageDialog {
             JOptionPane.showMessageDialog(null, this.content, this.title, this.messageType);
         } else if (this.type.equals("confirm")) {
             JOptionPane.showConfirmDialog(null, this.content, this.title, this.messageType);
+        } else if (this.type.equals("input")) {
+            inputValue = JOptionPane.showInputDialog(null, this.content, this.title, this.messageType);
         }
     }
 

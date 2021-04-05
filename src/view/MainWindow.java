@@ -1,26 +1,22 @@
 package view;
 
-import java.awt.EventQueue;
-
 import javax.swing.*;
 import java.awt.Font;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
-import controller.AddEmployeeListener;
 import controller.ShowEmployeeListener;
 import model.Config;
+import model.Employee;
 import model.EmployeeInfo;
 import model.MessageDialog;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class MainWindow extends JFrame {
 
@@ -99,6 +95,12 @@ public class MainWindow extends JFrame {
 
 
         JButton modifyButton = new JButton("\u4FEE\u6539");
+        modifyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+            }
+        });
         operatorPanel.add(modifyButton);
 
         JLabel showLabel = new JLabel("\u663E\u793A\u804C\u5DE5\u4FE1\u606F");
@@ -112,6 +114,23 @@ public class MainWindow extends JFrame {
         operatorPanel.add(delLabel);
 
         JButton delButton = new JButton("\u5220\u9664");
+        delButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                new MessageDialog("input", JOptionPane.PLAIN_MESSAGE, "删除工号", "请输入要删除的职工的职工序号...").show();
+                if (!Employee.isNumberic(MessageDialog.inputValue)) {
+                    new MessageDialog("message", JOptionPane.PLAIN_MESSAGE, "输入错误", "职工序号格式错误, 请重试....").show();
+                    new MessageDialog("input", JOptionPane.PLAIN_MESSAGE, "删除工号", "请输入要删除的职工的职工序号...").show();
+                }
+                for (int i = 0; i < tableDataList.size(); i++) {
+                    if (MessageDialog.inputValue.equals(tableDataList.get(i).getUsrId())) {
+                        tableDataList.remove(i);
+                        break;
+                    }
+                }
+
+            }
+        });
         operatorPanel.add(delButton);
 
         JPanel staticsPanel = new JPanel();
@@ -231,5 +250,27 @@ public class MainWindow extends JFrame {
 
         JMenuItem aboutItem = new JMenuItem("About");
         otherMenu.add(aboutItem);
+    }
+
+    public void updateTxt(ArrayList<EmployeeInfo> l) {
+        StringBuilder rowLine = new StringBuilder();
+        try {
+            FileWriter w = new FileWriter(Config.DATAFILEPATH);
+            BufferedWriter bw = new BufferedWriter(w);
+            for (int i = 0; i < l.size(); i++) {
+                rowLine.append(l.get(i).getUsrId() + ",");
+                rowLine.append(l.get(i).getName() + ",");
+                rowLine.append(l.get(i).getBirthday() + ",");
+                rowLine.append(l.get(i).getWage() + ",");
+                rowLine.append(l.get(i).getEmail());
+                bw.write(rowLine.toString());
+                bw.newLine();
+            }
+            bw.close();
+            w.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
