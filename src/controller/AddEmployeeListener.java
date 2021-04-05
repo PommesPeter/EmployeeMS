@@ -2,9 +2,7 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 import javax.swing.*;
 
@@ -14,8 +12,9 @@ import view.AddEmployeeWindow;
 
 public class AddEmployeeListener implements ActionListener {
 
+    private final static String filePath = "/run/media/pommespeter/File/schoolFile/学习/面向对象编程/Experinment/Experinment03/EmployeeMS/src/data/data.csv";
     AddEmployeeWindow am;
-    private final static String filePath = "/run/media/pommespeter/File/schoolFile/学习/面向对象编程/Experinment/Experinment03/EmployeeMS/src/data/data.txt";
+    FileWriter w;
 
     public AddEmployeeListener(AddEmployeeWindow am) {
         this.am = am;
@@ -23,12 +22,6 @@ public class AddEmployeeListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
-        try {
-            FileWriter w = new FileWriter(filePath);
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
 
         if (this.am.getNumInput().equals("")) {
             new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "职工号不能为空, 请重试....").show();
@@ -62,10 +55,20 @@ public class AddEmployeeListener implements ActionListener {
         Employee employee = new Employee(am.getNumInput(), am.getNameInput(), am.getYearInput() + am.getMonthInput(), am.getWageInput(), am.getEmailInput());
 //        am.getNumInput() + "," + am.getNumInput() + "," + am.getYearInput() + am.getMonthInput() + "," + am.getWageInput() + "," + am.getEmailInput()
 
-        StringBuffer s = new StringBuffer();
+        String usrInfo = employee.generateRecord();
+        try {
+            FileWriter w = new FileWriter(filePath, true);
+            BufferedWriter bw = new BufferedWriter(w);
+            bw.write(usrInfo);
+            bw.newLine();
 
-
+            bw.close();
+            w.close();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
         System.out.println("add a employee");
+
     }
 }
 /**/

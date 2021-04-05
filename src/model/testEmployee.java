@@ -14,6 +14,7 @@ public class testEmployee {
 		employee.setBirthday("20000601");
 		System.out.println(employee.getBirthdayOriginal());
 		System.out.println(Employee.isDoubleNumber(employee.getWage().toString()));
+		System.out.println(employee.generateRecord());
 		
 	}
 

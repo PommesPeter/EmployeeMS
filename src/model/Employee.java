@@ -19,7 +19,7 @@ public class Employee {
 	private String wage;
 	private String email;
 	private static int count = 0;
-	private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
 
 	public Integer getUsrId() {
 		return usrId;
@@ -108,14 +108,20 @@ public class Employee {
 		return year.toString() + df.format(month) + df.format(this.getUsrId());
 	}
 
-	private String generateRecord() {
+	public String generateRecord() {
 
-
+		StringBuilder usrInfo = new StringBuilder();
+		usrInfo.append(this.getGusrId() + ",");
+		usrInfo.append(this.getName() + ",");
+		usrInfo.append(this.getBirthdayOriginal() + ",");
+		usrInfo.append(this.getWage() + ",");
+		usrInfo.append(this.getEmail());
+		return usrInfo.toString();
 	}
 
 	public static boolean isVaildEmail(String email) {
 		String pattern = "^\\s*\\w+(?:\\.{0,1}[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$";
-//		String pattern = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";
+//		String pattern = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";y
 		Pattern regex = Pattern.compile(pattern);
 		Matcher matcher = regex.matcher(email);
 		return matcher.matches();
