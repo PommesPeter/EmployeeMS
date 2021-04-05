@@ -98,6 +98,25 @@ public class MainWindow extends JFrame {
         modifyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                new MessageDialog("input", JOptionPane.PLAIN_MESSAGE, "更新职工信息", "请输入要更新的职工的职工序号...").show();
+                try {
+                    if (!Employee.isNumberic(MessageDialog.inputValue)) {
+                        new MessageDialog("message", JOptionPane.PLAIN_MESSAGE, "输入错误", "职工序号格式错误, 请重试....").show();
+                        new MessageDialog("input", JOptionPane.PLAIN_MESSAGE, "更新职工信息", "请输入要更新的职工的职工序号...").show();
+                    }
+                } catch (Exception e) {
+                    new MessageDialog("message", JOptionPane.PLAIN_MESSAGE, "输入错误", "职工序号为空, 请重试....").show();
+                    return;
+                }
+
+                for (int i = 0; i < tableDataList.size(); i++) {
+                    if (MessageDialog.inputValue.equals(tableDataList.get(i).getUsrId())) {
+
+                        break;
+                    }
+                }
+                updateTxt(tableDataList);
+                new MessageDialog("message", JOptionPane.PLAIN_MESSAGE, "操作", "工号序号为:" + MessageDialog.inputValue + "的职工信息已更新....");
 
             }
         });
@@ -117,18 +136,25 @@ public class MainWindow extends JFrame {
         delButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                new MessageDialog("input", JOptionPane.PLAIN_MESSAGE, "删除工号", "请输入要删除的职工的职工序号...").show();
-                if (!Employee.isNumberic(MessageDialog.inputValue)) {
-                    new MessageDialog("message", JOptionPane.PLAIN_MESSAGE, "输入错误", "职工序号格式错误, 请重试....").show();
-                    new MessageDialog("input", JOptionPane.PLAIN_MESSAGE, "删除工号", "请输入要删除的职工的职工序号...").show();
+                new MessageDialog("input", JOptionPane.PLAIN_MESSAGE, "删除职工信息", "请输入要删除的职工的职工序号...").show();
+                try {
+                    if (!Employee.isNumberic(MessageDialog.inputValue)) {
+                        new MessageDialog("message", JOptionPane.PLAIN_MESSAGE, "输入错误", "职工序号格式错误, 请重试....").show();
+                        new MessageDialog("input", JOptionPane.PLAIN_MESSAGE, "删除工号", "请输入要删除的职工的职工序号...").show();
+                    }
+                } catch (Exception e) {
+                    new MessageDialog("message", JOptionPane.PLAIN_MESSAGE, "输入错误", "职工序号为空, 请重试....").show();
+                    return;
                 }
+
                 for (int i = 0; i < tableDataList.size(); i++) {
                     if (MessageDialog.inputValue.equals(tableDataList.get(i).getUsrId())) {
                         tableDataList.remove(i);
                         break;
                     }
                 }
-
+                updateTxt(tableDataList);
+                new MessageDialog("message", JOptionPane.PLAIN_MESSAGE, "操作", "工号序号为:" + MessageDialog.inputValue + "的职工信息删除成功....");
             }
         });
         operatorPanel.add(delButton);
@@ -253,16 +279,16 @@ public class MainWindow extends JFrame {
     }
 
     public void updateTxt(ArrayList<EmployeeInfo> l) {
-        StringBuilder rowLine = new StringBuilder();
         try {
             FileWriter w = new FileWriter(Config.DATAFILEPATH);
             BufferedWriter bw = new BufferedWriter(w);
-            for (int i = 0; i < l.size(); i++) {
-                rowLine.append(l.get(i).getUsrId() + ",");
-                rowLine.append(l.get(i).getName() + ",");
-                rowLine.append(l.get(i).getBirthday() + ",");
-                rowLine.append(l.get(i).getWage() + ",");
-                rowLine.append(l.get(i).getEmail());
+            for (EmployeeInfo employeeInfo : l) {
+                StringBuilder rowLine = new StringBuilder();
+                rowLine.append(employeeInfo.getUsrId()).append(",");
+                rowLine.append(employeeInfo.getName()).append(",");
+                rowLine.append(employeeInfo.getBirthday()).append(",");
+                rowLine.append(employeeInfo.getWage()).append(",");
+                rowLine.append(employeeInfo.getEmail());
                 bw.write(rowLine.toString());
                 bw.newLine();
             }
