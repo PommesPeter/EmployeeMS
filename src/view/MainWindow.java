@@ -97,6 +97,7 @@ public class MainWindow extends JFrame {
         JLabel modifyLabel = new JLabel("\u4FEE\u6539\u804C\u5DE5\u4FE1\u606F");
         operatorPanel.add(modifyLabel);
 
+
         JButton modifyButton = new JButton("\u4FEE\u6539");
         operatorPanel.add(modifyButton);
 
@@ -231,5 +232,4 @@ public class MainWindow extends JFrame {
         JMenuItem aboutItem = new JMenuItem("About");
         otherMenu.add(aboutItem);
     }
-
 }
