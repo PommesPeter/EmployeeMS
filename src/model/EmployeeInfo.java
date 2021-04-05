@@ -17,6 +17,14 @@ public class EmployeeInfo {
         this.email = data[4];
     }
 
+    public EmployeeInfo(String usrId, String name, String birthday, String wage, String email) {
+        this.usrId = usrId;
+        this.name = name;
+        this.birthday = birthday;
+        this.wage = wage;
+        this.email = email;
+    }
+
     public String getUsrId() {
         return usrId;
     }

@@ -101,16 +101,51 @@ public class MainWindow extends JFrame {
                 new MessageDialog("input", JOptionPane.PLAIN_MESSAGE, "更新职工信息", "请输入要更新的职工的职工序号...").show();
                 try {
                     if (!Employee.isNumberic(MessageDialog.inputValue)) {
-                        new MessageDialog("message", JOptionPane.PLAIN_MESSAGE, "输入错误", "职工序号格式错误, 请重试....").show();
+                        new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "职工序号格式错误, 请重试....").show();
                         new MessageDialog("input", JOptionPane.PLAIN_MESSAGE, "更新职工信息", "请输入要更新的职工的职工序号...").show();
                     }
                 } catch (Exception e) {
-                    new MessageDialog("message", JOptionPane.PLAIN_MESSAGE, "输入错误", "职工序号为空, 请重试....").show();
+                    new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "职工序号为空, 请重试....").show();
                     return;
                 }
 
                 for (int i = 0; i < tableDataList.size(); i++) {
                     if (MessageDialog.inputValue.equals(tableDataList.get(i).getUsrId())) {
+                        String usrId = tableDataList.get(i).getUsrId();
+                        String nameInput = JOptionPane.showInputDialog(null, "请输入更改后的姓名...(输入N为不修改)", "修改信息", JOptionPane.PLAIN_MESSAGE);
+                        if (nameInput.equals("")) {
+                            new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "姓名为空, 请重试...").show();
+                            nameInput = JOptionPane.showInputDialog(null, "请输入更改后的姓名...(输入N为不修改)", "修改信息", JOptionPane.PLAIN_MESSAGE);
+                            if (nameInput.equals("n") || nameInput.equals("N")) {
+                                nameInput = tableDataList.get(i).getName();
+                            }
+                        }
+                        String birthInput = JOptionPane.showInputDialog(null, "请输入更改后的生日...(格式:yyyyMM)(输入N为不修改)", "修改信息", JOptionPane.PLAIN_MESSAGE);
+                        if (birthInput.equals("")) {
+                            new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "生日为空, 请重试...").show();
+                            birthInput = JOptionPane.showInputDialog(null, "请输入更改后的生日...(格式:yyyyMM)(输入N为不修改)", "修改信息", JOptionPane.PLAIN_MESSAGE);
+                            if (birthInput.equals("N") || birthInput.equals("n")) {
+                                birthInput = tableDataList.get(i).getBirthday();
+                            }
+                        }
+                        String wageInput = JOptionPane.showInputDialog(null, "请输入更改后的基本工薪...(输入N为不修改)", "修改信息", JOptionPane.PLAIN_MESSAGE);
+                        if (wageInput.equals("")) {
+                            new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "基本工薪为空, 请重试...").show();
+                            wageInput = JOptionPane.showInputDialog(null, "请输入更改后的基本工薪...(输入N为不修改)", "修改信息", JOptionPane.PLAIN_MESSAGE);
+                            if (wageInput.equals("N") || wageInput.equals("n")) {
+                                wageInput = tableDataList.get(i).getWage();
+                            }
+                        }
+                        String emailInput = JOptionPane.showInputDialog(null, "请输入更改后的Email...(输入N为不修改)", "修改信息", JOptionPane.PLAIN_MESSAGE);
+                        if (emailInput.equals("")) {
+                            new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "Email为空, 请重试...").show();
+                            emailInput = JOptionPane.showInputDialog(null, "请输入更改后的Email...(输入N为不修改)", "修改信息", JOptionPane.PLAIN_MESSAGE);
+                            if (emailInput.equals("N") || emailInput.equals("n")) {
+                                emailInput = tableDataList.get(i).getEmail();
+                            }
+                        }
+                        EmployeeInfo e = new EmployeeInfo(usrId, nameInput, birthInput, wageInput, emailInput);
+                        tableDataList.set(i, e);
 
                         break;
                     }
@@ -139,7 +174,7 @@ public class MainWindow extends JFrame {
                 new MessageDialog("input", JOptionPane.PLAIN_MESSAGE, "删除职工信息", "请输入要删除的职工的职工序号...").show();
                 try {
                     if (!Employee.isNumberic(MessageDialog.inputValue)) {
-                        new MessageDialog("message", JOptionPane.PLAIN_MESSAGE, "输入错误", "职工序号格式错误, 请重试....").show();
+                        new MessageDialog("message", JOptionPane.ERROR_MESSAGE, "输入错误", "职工序号格式错误, 请重试....").show();
                         new MessageDialog("input", JOptionPane.PLAIN_MESSAGE, "删除工号", "请输入要删除的职工的职工序号...").show();
                     }
                 } catch (Exception e) {
