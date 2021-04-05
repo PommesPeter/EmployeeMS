@@ -58,12 +58,12 @@ public class MainWindow extends JFrame {
         frame.getContentPane().setLayout(new BorderLayout(0, 0));
         frame.setVisible(true);
         frame.setLocationRelativeTo(frame);
-
-        JLabel title = new JLabel("\u804C\u5DE5\u4FE1\u606F\u7BA1\u7406\u7CFB\u7EDF", JLabel.CENTER);
+        ImageIcon titleIc = new ImageIcon(Config.IMAGETITLEPATH);
+        JLabel title = new JLabel(titleIc, JLabel.CENTER);
         title.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 35));
         frame.getContentPane().add(title, BorderLayout.NORTH);
 
-        JLabel footer = new JLabel("New label");
+        JLabel footer = new JLabel("Copyright@PommesPeter(1900301236谢浚霖)", JLabel.LEFT);
         frame.getContentPane().add(footer, BorderLayout.SOUTH);
 
         JPanel operatorPanel = new JPanel();
@@ -84,6 +84,7 @@ public class MainWindow extends JFrame {
         operatorPanel.setLayout(new GridLayout(9, 1, 0, 0));
 
         JLabel opLabel = new JLabel("\u64CD\u4F5C");
+        opLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 20));
         operatorPanel.add(opLabel);
 
         JLabel addLabel = new JLabel("\u6DFB\u52A0\u804C\u5DE5\u4FE1\u606F");
@@ -146,7 +147,7 @@ public class MainWindow extends JFrame {
                     }
                 }
                 updateTxt(tableDataList);
-                new MessageDialog("message", JOptionPane.PLAIN_MESSAGE, "操作", "工号序号为:" + MessageDialog.inputValue + "的职工信息已更新....");
+                new MessageDialog("message", JOptionPane.PLAIN_MESSAGE, "操作", "工号序号为:" + usrIdInput + "的职工信息已更新....");
 
             }
         });
@@ -194,6 +195,7 @@ public class MainWindow extends JFrame {
         staticsPanel.setLayout(new GridLayout(9, 1, 0, 0));
 
         JLabel staticsLabel = new JLabel("\u7EDF\u8BA1");
+        staticsLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 20));
         staticsPanel.add(staticsLabel);
 
         JLabel numLabel = new JLabel("\u663E\u793A\u804C\u5DE5\u4EBA\u6570");
@@ -265,7 +267,8 @@ public class MainWindow extends JFrame {
         });
         staticsPanel.add(minButton);
 
-        JLabel image = new JLabel("Image");
+        ImageIcon ic = new ImageIcon(Config.IMAGEBANNERPATH);
+        JLabel image = new JLabel(ic);
         frame.getContentPane().add(image, BorderLayout.CENTER);
 
         JMenuBar menuBar = new JMenuBar();
