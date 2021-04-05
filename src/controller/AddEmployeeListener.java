@@ -3,15 +3,17 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.util.Calendar;
 
 import javax.swing.*;
+
+import model.Config;
 import model.Employee;
 import model.MessageDialog;
 import view.AddEmployeeWindow;
 
 public class AddEmployeeListener implements ActionListener {
 
-    private final static String filePath = "/run/media/pommespeter/File/schoolFile/学习/面向对象编程/Experinment/Experinment03/EmployeeMS/src/data/data.csv";
     AddEmployeeWindow am;
     JFrame frame;
 
@@ -57,7 +59,7 @@ public class AddEmployeeListener implements ActionListener {
 
         String usrInfo = employee.generateRecord();
         try {
-            FileWriter w = new FileWriter(filePath, true);
+            FileWriter w = new FileWriter(Config.DATAFILEPATH, true);
             BufferedWriter bw = new BufferedWriter(w);
             bw.write(usrInfo);
             bw.newLine();

@@ -1,16 +1,18 @@
 package view;
 
 import controller.ShowEmployeeListener;
+import model.Config;
 
-import java.awt.EventQueue;
+import java.awt.*;
 
 import javax.swing.*;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class ShowEmployeeWindow extends JFrame {
 
@@ -77,6 +79,11 @@ public class ShowEmployeeWindow extends JFrame {
 		footer.add(cancelButton);
 
 		String colName[] = {"职工序号", "姓名", "出生年月", "基本工薪", "Email"};
+		try {
+			getData();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		infoList = new JTable();
 		JScrollPane scrollPane = new JScrollPane(infoList);
 		infoList.setFont(new Font("Dialog", Font.BOLD, 12));
@@ -89,9 +96,19 @@ public class ShowEmployeeWindow extends JFrame {
 		title.add(titleLabel, BorderLayout.NORTH);
 	}
 
-	public String[][] getData() {
-		String[][] data = new String[3][5];
-		FileReader r = new FileReader()
+	public String getData() throws IOException {
+		int len;
+		int rowLen = 0;
+		FileReader r = new FileReader(Config.DATAFILEPATH);
+		BufferedReader br = new BufferedReader(r);
+		while ((len = br.read()) != - 1) {
+			rowLen++;
+			String tmp = br.readLine();
+			String[] data = tmp.split(",");
+			System.out.println(tmp);
+		}
+
+		return ";";
 	}
 
 	public void updateTable(JTable table, String[][] content) {
