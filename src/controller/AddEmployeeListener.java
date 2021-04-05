@@ -14,10 +14,11 @@ public class AddEmployeeListener implements ActionListener {
 
     private final static String filePath = "/run/media/pommespeter/File/schoolFile/学习/面向对象编程/Experinment/Experinment03/EmployeeMS/src/data/data.csv";
     AddEmployeeWindow am;
-    FileWriter w;
+    JFrame frame;
 
-    public AddEmployeeListener(AddEmployeeWindow am) {
+    public AddEmployeeListener(AddEmployeeWindow am, JFrame frame) {
         this.am = am;
+        this.frame = frame;
     }
 
     @Override
@@ -68,7 +69,7 @@ public class AddEmployeeListener implements ActionListener {
             ioException.printStackTrace();
         }
         System.out.println("add a employee");
-
+        frame.dispose();
     }
 }
 /**/
