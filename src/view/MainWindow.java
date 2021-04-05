@@ -19,6 +19,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class MainWindow extends JFrame {
@@ -38,7 +39,7 @@ public class MainWindow extends JFrame {
         try {
             r = new FileReader(Config.DATAFILEPATH);
             BufferedReader br = new BufferedReader(r);
-            while (br.read() != - 1) {
+            while (br.read() != -1) {
                 String tmp = br.readLine();
                 String[] splitData = tmp.split(",");
                 EmployeeInfo e = new EmployeeInfo(splitData);
@@ -141,10 +142,11 @@ public class MainWindow extends JFrame {
             public void actionPerformed(ActionEvent actionEvent) {
                 // average of the wage
                 Double sum = 0.0;
+                DecimalFormat df = new DecimalFormat("#.000");
                 for (EmployeeInfo employeeInfo : tableDataList) {
                     sum += Double.parseDouble(employeeInfo.getWage());
                 }
-                new MessageDialog("message", JOptionPane.PLAIN_MESSAGE, "查询结果", "目前所有职工的平均基本工薪为: " + sum / tableDataList.size() + "元").show();
+                new MessageDialog("message", JOptionPane.PLAIN_MESSAGE, "查询结果", "目前所有职工的平均基本工薪为: " + df.format(sum / tableDataList.size()) + "元").show();
             }
         });
         staticsPanel.add(avgButton);
@@ -153,15 +155,41 @@ public class MainWindow extends JFrame {
         staticsPanel.add(maxLabel);
 
         JButton maxButton = new JButton("\u6700\u9AD8\u85AA\u8D44");
+        maxButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                Double max = 0.0;
+                DecimalFormat df = new DecimalFormat("#.000");
+                for (EmployeeInfo employeeInfo : tableDataList) {
+                    if (Double.parseDouble(employeeInfo.getWage()) > max) {
+                        max = Double.parseDouble(employeeInfo.getWage());
+                    }
+                }
+                new MessageDialog("message", JOptionPane.PLAIN_MESSAGE, "查询结果", "目前最高基本工薪为: " + df.format(max) + "元").show();
+            }
+        });
         staticsPanel.add(maxButton);
 
         JLabel minLabel = new JLabel("\u663E\u793A\u6700\u4F4E\u85AA\u8D44");
         staticsPanel.add(minLabel);
 
         JButton minButton = new JButton("\u6700\u4F4E\u85AA\u8D44");
+        minButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                Double min = 1e6;
+                DecimalFormat df = new DecimalFormat("0.000");
+                for (EmployeeInfo employeeInfo : tableDataList) {
+                    if (Double.parseDouble(employeeInfo.getWage()) < min) {
+                        min = Double.parseDouble(employeeInfo.getWage());
+                    }
+                }
+                new MessageDialog("message", JOptionPane.PLAIN_MESSAGE, "查询结果", "目前最低基本工薪为: " + df.format(min) + "元").show();
+            }
+        });
         staticsPanel.add(minButton);
 
-        JLabel image = new JLabel("New label");
+        JLabel image = new JLabel("Image");
         frame.getContentPane().add(image, BorderLayout.CENTER);
 
         JMenuBar menuBar = new JMenuBar();

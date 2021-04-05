@@ -146,7 +146,11 @@ public class AddEmployeeWindow extends JFrame {
     }
 
     public String getMonthInput() {
-        return String.format("%02d", Integer.parseInt(monthInput.getText()));
+        try {
+            return String.format("%02d", Integer.parseInt(monthInput.getText()));
+        } catch (Exception e) {
+            return "";
+        }
     }
 
     public void setNumInput(String content) {

@@ -121,7 +121,7 @@ public class Employee {
 
 	public static boolean isVaildEmail(String email) {
 		String pattern = "^\\s*\\w+(?:\\.{0,1}[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$";
-//		String pattern = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";y
+//		String pattern = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";
 		Pattern regex = Pattern.compile(pattern);
 		Matcher matcher = regex.matcher(email);
 		return matcher.matches();
